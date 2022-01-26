@@ -460,8 +460,8 @@ timeout = 60.0
 
 clock = pygame.time.Clock()
 FPS = 120
-#boat = r'Photo/pixil-frame-0 (2).png'
-boat = r'Photo/boat_2.png'
+boat = r'Photo/pixil-frame-0 (2).png'
+#boat = r'Photo/boat_2.png'
 
 WINDOWWIDTH = 1200
 WINDOWHEIGHT = 700
