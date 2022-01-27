@@ -371,12 +371,12 @@ def castomize():
         boat_1 = pygame.transform.scale(boat_1, (300, 300))
         boat_1.set_colorkey((255, 255, 255))
         windowSurface.blit(boat_1, (100, 100))
-        Button_n('выбрать', (255, 255, 255), 100, 420, 40, windowSurface, 50, 200, music)
+        Button_n('выбрать', (255, 255, 255), 100, 420, 40, windowSurface, 50, 150, music)
         boat_2 = pygame.image.load(r'Photo/pixil-frame-0 (2).png')
         boat_2 = pygame.transform.scale(boat_2, (300, 300))
         boat_2.set_colorkey((255, 255, 255))
         windowSurface.blit(boat_2, (500, 100))
-        Button_n('выбрать', (255, 255, 255), 500, 420, 40, windowSurface, 50, 200, music)
+        Button_n('выбрать', (255, 255, 255), 500, 420, 40, windowSurface, 50, 150, music)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == QUIT:
