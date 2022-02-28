@@ -173,8 +173,9 @@ def game_go():
     waitForPlayerToPressKey()
 
     topScore = 0
-    shield = 3
+
     while True:
+        shield = 3
         baddies = []
         score = 0
         playerRect.topleft = (WINDOWWIDTH / 2, WINDOWHEIGHT - 50)
@@ -272,7 +273,7 @@ def game_go():
                 elif reverseCheat:
                     b['rect'].move_ip(0, -5)
                 elif slowCheat:
-                    b['rect'].move_ip(0, 1)   
+                    b['rect'].move_ip(0, 1)
 
             for b in baddies[:]:
                 if b['rect'].top > WINDOWHEIGHT:
@@ -295,6 +296,10 @@ def game_go():
             if playerHasHitBaddie(playerRect, baddies):
                 if score > topScore:
                     topScore = score
+                if boat == 'Photo/pixil-frame-0 (2).png' or boat == 'Photo/pixil_shield_1.png':
+                    playerImage = pygame.image.load(r'Photo/pixil_shield_1.png')
+                else:
+                    playerImage = pygame.image.load(r'Photo/boat_2_shield.png')
                 break
             mainClock.tick(FPS)
 
@@ -305,6 +310,7 @@ def game_go():
         Button('Нажмите любую кнопку, чтобы начать заного', (255, 255, 255), 250,
                520, 40,
                windowSurface)
+        pygame.display.update()
         pygame.display.update()
         file_o = open(r'Code/top_score.txt', 'a', encoding='utf-8')
         file_o.write('\n' + str(score))
