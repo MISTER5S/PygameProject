@@ -272,7 +272,7 @@ def game_go():
                 elif reverseCheat:
                     b['rect'].move_ip(0, -5)
                 elif slowCheat:
-                    b['rect'].move_ip(0, 1)
+                    b['rect'].move_ip(0, 1)   
 
             for b in baddies[:]:
                 if b['rect'].top > WINDOWHEIGHT:
