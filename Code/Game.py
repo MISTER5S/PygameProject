@@ -160,7 +160,6 @@ def game_go():
     font = pygame.font.SysFont(None, 48)
 
     playerImage = pygame.image.load(cast_boat())
-    print(cast_boat())
     playerRect = playerImage.get_rect()
     baddieImage = pygame.image.load(r'Photo/metorit.png')
     image = pygame.image.load(r'Photo/horizon-stars-space-pixels-wallpaper-preview.jpg')
