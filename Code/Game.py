@@ -87,6 +87,7 @@ def terminate():
 
 
 def game_go():
+    global shield
     pygame.mixer.init()
     music = pygame.mixer.Sound(pygame.mixer.Sound(r'Music/main_music.mp3'))
     music.play(-1, 0)
@@ -128,9 +129,15 @@ def game_go():
                     return
 
     def playerHasHitBaddie(playerRect, baddies):
+        global shield
         for b in baddies:
             if playerRect.colliderect(b['rect']):
-                return True
+                if shield == 0:
+                    return True
+                else:
+                    shield -= 1
+                    baddies.remove(b)
+                    return False
         return False
 
     def drawText(text, font, surface, x, y):
@@ -161,6 +168,7 @@ def game_go():
     waitForPlayerToPressKey()
 
     topScore = 0
+    shield = 3
     while True:
         baddies = []
         score = 0
@@ -437,5 +445,6 @@ windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
 pygame.display.set_caption('Dodger')
 pygame.mouse.set_visible(True)
 pygame.display.update()
+shield = 3
 while pygame.event.wait().type != pygame.QUIT:
     WaitForPlayerToPressKey(1)
