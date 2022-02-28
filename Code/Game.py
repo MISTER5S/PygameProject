@@ -63,11 +63,11 @@ class Button_n:
             pygame.draw.rect(screen, (21, 20, 24), (x - 10, y, self.width, self.height))
             if click[0] == 1 and x == 100:
                 music.stop()
-                cast_boat(r'Photo/boat_2.png')
+                cast_boat(r'Photo/boat_2_shield.png')
                 WaitForPlayerToPressKey(1)
             elif click[0] == 1 and x == 500:
                 music.stop()
-                cast_boat(r'Photo/pixil-frame-0 (2).png')
+                cast_boat(r'Photo/pixil_shield_1.png')
                 WaitForPlayerToPressKey(1)
         pygame.font.init()
         text_r = font.render(text, True, color)
@@ -87,7 +87,7 @@ def terminate():
 
 
 def game_go():
-    global shield
+    global shield, boat, num_ch
     pygame.mixer.init()
     music = pygame.mixer.Sound(pygame.mixer.Sound(r'Music/main_music.mp3'))
     music.play(-1, 0)
@@ -129,11 +129,16 @@ def game_go():
                     return
 
     def playerHasHitBaddie(playerRect, baddies):
-        global shield
+        global shield, boat, num_ch
         for b in baddies:
             if playerRect.colliderect(b['rect']):
                 if shield == 0:
                     return True
+                elif shield == 1:
+                    num_ch = 1
+                    shield -= 1
+                    baddies.remove(b)
+                    return False
                 else:
                     shield -= 1
                     baddies.remove(b)
@@ -155,6 +160,7 @@ def game_go():
     font = pygame.font.SysFont(None, 48)
 
     playerImage = pygame.image.load(cast_boat())
+    print(cast_boat())
     playerRect = playerImage.get_rect()
     baddieImage = pygame.image.load(r'Photo/metorit.png')
     image = pygame.image.load(r'Photo/horizon-stars-space-pixels-wallpaper-preview.jpg')
@@ -178,6 +184,13 @@ def game_go():
         baddieAddCounter = 0
         # pygame.mixer.music.play(-1, 0.0)
         while True:
+            if num_ch == 1:
+                if boat == 'Photo/pixil_shield_1.png':
+                    playerImage = pygame.image.load(r'Photo/pixil-frame-0 (2).png')
+                else:
+                    playerImage = pygame.image.load(r'Photo/boat_2.png')
+                pygame.display.update()
+                num_ch = 0
             score += 1
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -375,12 +388,12 @@ def castomize():
     while True:
         Surphase(windowSurface)
         Button('Нажмите esc для возвращения в главное меню', (255, 255, 255), 0, 0, 40, windowSurface)
-        boat_1 = pygame.image.load(r'Photo/boat_2.png')
+        boat_1 = pygame.image.load(r'Photo/boat_2_shield.png')
         boat_1 = pygame.transform.scale(boat_1, (300, 300))
         boat_1.set_colorkey((255, 255, 255))
         windowSurface.blit(boat_1, (100, 100))
         Button_n('выбрать', (255, 255, 255), 100, 420, 40, windowSurface, 50, 150, music)
-        boat_2 = pygame.image.load(r'Photo/pixil-frame-0 (2).png')
+        boat_2 = pygame.image.load(r'Photo/pixil_shield_1.png')
         boat_2 = pygame.transform.scale(boat_2, (300, 300))
         boat_2.set_colorkey((255, 255, 255))
         windowSurface.blit(boat_2, (500, 100))
@@ -436,7 +449,7 @@ timeout = 60.0
 
 clock = pygame.time.Clock()
 FPS = 120
-boat = r'Photo/pixil-frame-0 (2).png'
+boat = r'Photo/pixil_shield_1.png'
 
 WINDOWWIDTH = 1200
 WINDOWHEIGHT = 700
@@ -446,5 +459,6 @@ pygame.display.set_caption('Dodger')
 pygame.mouse.set_visible(True)
 pygame.display.update()
 shield = 3
+num_ch = 0
 while pygame.event.wait().type != pygame.QUIT:
     WaitForPlayerToPressKey(1)
